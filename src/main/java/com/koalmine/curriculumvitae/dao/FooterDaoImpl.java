@@ -15,7 +15,7 @@ public class FooterDaoImpl implements FooterDao {
     @Override
     public Footer getFooterInformation(Page pageName) {
         if (DATABASE.isEmpty()) {
-            DATABASE.put(Page.home, new Footer("JAVA", "Spring Boot"));
+            DATABASE.put(Page.home, new Footer("JAVA & Javascript", "Spring Boot & React"));
         }
         return DATABASE.get(pageName);
     }
