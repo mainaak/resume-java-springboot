@@ -1,8 +1,8 @@
 package com.koalmine.curriculumvitae.controller;
 
-import com.koalmine.curriculumvitae.exceptions.CommonException;
-import com.koalmine.curriculumvitae.exceptions.CreateUserValidationException;
+import com.koalmine.curriculumvitae.exceptions.UserValidationException;
 import com.koalmine.curriculumvitae.model.User;
+import com.koalmine.curriculumvitae.model.dto.SuccessDTO;
 import com.koalmine.curriculumvitae.model.dto.UserDTO;
 import com.koalmine.curriculumvitae.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/users")
@@ -46,8 +47,29 @@ public class UserController {
         return userService.generateUsers();
     }
 
-    @PostMapping("create")
+    @PostMapping("user")
     public UserDTO createUser(@Valid @RequestBody User user){
+
+        if (user.getUsername().contains(" "))
+            throw new UserValidationException("Username cannot have spaces!");
+
         return userService.createUser(user);
+    }
+
+    @PutMapping("user")
+    public UserDTO updateUser(@Valid @RequestBody User user){
+
+        if (user.getUsername().contains(" "))
+            throw new UserValidationException("Username cannot have spaces!");
+
+        return userService.updateUser(user);
+    }
+
+    @DeleteMapping("user")
+    public SuccessDTO deleteUser(@RequestBody Map<String, String> request){
+        if (!request.containsKey("username")){
+            throw new UserValidationException("Please check your request JSON");
+        }
+        return userService.deleteUser(request.get("username"));
     }
 }

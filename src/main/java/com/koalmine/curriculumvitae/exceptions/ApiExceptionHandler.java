@@ -31,20 +31,18 @@ public class ApiExceptionHandler {
         CommonException exception = new CommonException(
                 "Error",
                 e.getMessage(),
-                ZonedDateTime.now(ZoneId.of("Z")),
-                e
+                ZonedDateTime.now(ZoneId.of("Z"))
         );
         return new ResponseEntity<>(exception, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(CreateUserValidationException.class)
-    public ResponseEntity<CommonException> createUserValidationException(CreateUserValidationException e){
+    @ExceptionHandler(UserValidationException.class)
+    public ResponseEntity<CommonException> createUserValidationException(UserValidationException e){
 
         CommonException exception = new CommonException(
                 "Error",
                 e.getMessage(),
-                ZonedDateTime.now(ZoneId.of("Z")),
-                e
+                ZonedDateTime.now(ZoneId.of("Z"))
         );
         return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
     }
@@ -56,8 +54,7 @@ public class ApiExceptionHandler {
         return new CommonException(
                 "Error",
                 e.getBindingResult().getFieldError().getDefaultMessage(),
-                ZonedDateTime.now(ZoneId.of("Z")),
-                e
+                ZonedDateTime.now(ZoneId.of("Z"))
         );
     }
 }

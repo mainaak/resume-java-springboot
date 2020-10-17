@@ -2,6 +2,7 @@ package com.koalmine.curriculumvitae.service;
 
 import com.koalmine.curriculumvitae.dao.UserDao;
 import com.koalmine.curriculumvitae.model.User;
+import com.koalmine.curriculumvitae.model.dto.SuccessDTO;
 import com.koalmine.curriculumvitae.model.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,6 +28,16 @@ public class UserService {
 
     public UserDTO createUser(User user){
         return userDao.createUser(user);
+    }
+
+    public UserDTO updateUser(User user){
+        getUser(user.getUsername());
+        return userDao.updateUser(user);
+    }
+
+    public SuccessDTO deleteUser(String username){
+        getUser(username);
+        return userDao.deleteUser(username);
     }
 
     public int generateUsers(){

@@ -9,5 +9,5 @@ public class CommonException {
     private final String status;
     private final String cause;
     private final ZonedDateTime timestamp;
-    private final Throwable throwable;
+//    private final Throwable throwable;
 }
