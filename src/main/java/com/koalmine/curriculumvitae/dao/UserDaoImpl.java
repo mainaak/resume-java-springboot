@@ -18,7 +18,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public UserDTO getUser(String username) {
-        Optional<User> userDto = USER_DB.stream().findFirst().filter(user -> user.getUsername().equals(username));
+        Optional<User> userDto = USER_DB.stream().filter(user -> user.getUsername().equals(username)).findFirst();
         if (userDto.isPresent())
             return new UserDTO(
                     userDto.get().getName(),
